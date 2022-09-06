@@ -1,3 +1,5 @@
+using API_Assignment.Data;
+
 namespace API_Assignment
 {
     public class Program
@@ -12,6 +14,7 @@ namespace API_Assignment
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<DatabaseContext>();// This need to be here to run properly
 
             var app = builder.Build();
 
