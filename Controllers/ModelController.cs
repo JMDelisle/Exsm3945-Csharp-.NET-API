@@ -62,7 +62,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(404);
             }
         }
 
@@ -96,49 +96,49 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(404);
-            }
-        }
-
-        [HttpPatch("{id}")]
-        public ActionResult Patch(string id, string prop, string value)
-        {
-            int providedID;
-            VehicleModel found;
-            try
-            {
-                providedID = int.Parse(id);
-            }
-            catch
-            {
-                return BadRequest();
-            }
-            try
-            {
-                found = _context.Models.Where(x => x.ID == providedID).Single();
-            }
-            catch
-            {
-                return NotFound();
-            }
-            try
-            {
-                switch (prop)
-                {
-                    case "Model name": // Displayed for viewers.
-                        found.Name = value;
-                        break;
-                    default:
-                        return BadRequest();
-                }
-                _context.SaveChanges();
-                return Ok();
-            }
-            catch
-            {
                 return StatusCode(400);
             }
         }
+
+        //[HttpPatch("{id}")]
+        //public ActionResult Patch(string id, string prop, string value)
+        //{
+        //    int providedID;
+        //    VehicleModel found;
+        //    try
+        //    {
+        //        providedID = int.Parse(id);
+        //    }
+        //    catch
+        //    {
+        //        return BadRequest();
+        //    }
+        //    try
+        //    {
+        //        found = _context.Models.Where(x => x.ID == providedID).Single();
+        //    }
+        //    catch
+        //    {
+        //        return NotFound();
+        //    }
+        //    try
+        //    {
+        //        switch (prop)
+        //        {
+        //            case "Model name": // Displayed for viewers.
+        //                found.Name = value;
+        //                break;
+        //            default:
+        //                return BadRequest();
+        //        }
+        //        _context.SaveChanges();
+        //        return Ok();
+        //    }
+        //    catch
+        //    {
+        //        return StatusCode(400);
+        //    }
+        //}
 
         // DELETE api/<CustomerController>/5
         [HttpDelete("{id}")]

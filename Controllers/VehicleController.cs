@@ -24,12 +24,12 @@ namespace API_Assignment.Controllers
 
         // GET api/<CustomerController>/5
         [HttpGet("{id}")]
-        public ActionResult<Vehicle> Get(string VIN)
+        public ActionResult<Vehicle> Get(string vin)
         {
-            int providedID;
+            string providedID;
             try
             {
-                providedID = int.Parse(VIN);
+                providedID = vin;
             }
             catch
             {
@@ -56,41 +56,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                _context.Models.Add(new Vehicle() { VIN = vin});
-                _context.SaveChanges();
-                return Ok();
-            }
-            catch
-            {
-                return StatusCode(500);
-            }
-        }
-
-        // PUT api/<CustomerController>/5
-        [HttpPut("{id}")]
-        public ActionResult Put(string id, string name)
-        {
-            int providedID;
-            Vehicle found;
-            try
-            {
-                providedID = int.Parse(id);
-            }
-            catch
-            {
-                return BadRequest();
-            }
-            try
-            {
-                found = _context.Vehicles.Where(x => x.ID == providedID).Single();
-            }
-            catch
-            {
-                return NotFound();
-            }
-            try
-            {
-                found.Name = name ?? found.Name;
+                _context.Vehicles.Add(new Vehicle() { VIN = vin });
                 _context.SaveChanges();
                 return Ok();
             }
@@ -100,14 +66,15 @@ namespace API_Assignment.Controllers
             }
         }
 
-        [HttpPatch("{id}")]
-        public ActionResult Patch(string id, string prop, string value)
+        // PUT api/<CustomerController>/5
+        [HttpPut("{id}")]
+        public ActionResult Put(string vin)
         {
-            int providedID;
+            string providedID;
             Vehicle found;
             try
             {
-                providedID = int.Parse(id);
+                providedID = (vin);
             }
             catch
             {
@@ -115,7 +82,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                found = _context.Vehicles.Where(x => x.ID == providedID).Single();
+                found = _context.Vehicles.Where(x => x.VIN == providedID).Single();
             }
             catch
             {
@@ -123,32 +90,65 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                switch (prop)
-                {
-                    case "Model name": // Displayed for viewers.
-                        found.Name = value;
-                        break;
-                    default:
-                        return BadRequest();
-                }
+                found.VIN = vin ?? found.VIN;
                 _context.SaveChanges();
                 return Ok();
             }
             catch
             {
-                return StatusCode(400);
+                return StatusCode(404);
             }
         }
 
+        //[HttpPatch("{id}")]
+        //public ActionResult Patch(string id, string prop, string value)
+        //{
+        //    int providedID;
+        //    Vehicle found;
+        //    try
+        //    {
+        //        providedID = int.Parse(id);
+        //    }
+        //    catch
+        //    {
+        //        return BadRequest();
+        //    }
+        //    try
+        //    {
+        //        found = _context.Vehicles.Where(x => x.ID == providedID).Single();
+        //    }
+        //    catch
+        //    {
+        //        return NotFound();
+        //    }
+        //    try
+        //    {
+        //        switch (prop)
+        //        {
+        //            case "Model name": // Displayed for viewers.
+        //                found.Name = value;
+        //                break;
+        //            default:
+        //                return BadRequest();
+        //        }
+        //        _context.SaveChanges();
+        //        return Ok();
+        //    }
+        //    catch
+        //    {
+        //        return StatusCode(400);
+        //    }
+        //}
+
         // DELETE api/<CustomerController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string vin)
         {
-            int providedID;
+            string providedID;
             Vehicle found;
             try
             {
-                providedID = int.Parse(id);
+                providedID = (vin);
             }
             catch
             {
@@ -156,7 +156,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                found = _context.Vehicles.Where(x => x.ID == providedID).Single();
+                found = _context.Vehicles.Where(x => x.VIN == providedID).Single();
             }
             catch
             {
