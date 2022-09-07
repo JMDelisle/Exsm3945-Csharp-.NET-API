@@ -62,7 +62,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(404);
+                return StatusCode(400);
             }
         }
 

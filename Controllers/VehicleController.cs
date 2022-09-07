@@ -48,15 +48,15 @@ namespace API_Assignment.Controllers
 
         // POST api/<CustomerController>
         [HttpPost]
-        public ActionResult Post(string vin)
+        public ActionResult Post(string vin, string trim)
         {
-            if (string.IsNullOrWhiteSpace(vin))
+            if (string.IsNullOrWhiteSpace(vin) || string.IsNullOrWhiteSpace(trim))
             {
                 return BadRequest();
             }
             try
             {
-                _context.Vehicles.Add(new Vehicle() { VIN = vin });
+                _context.Vehicles.Add(new Vehicle() { VIN = vin, TrimLevel = trim });
                 _context.SaveChanges();
                 return Ok();
             }

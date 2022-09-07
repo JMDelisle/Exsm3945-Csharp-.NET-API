@@ -48,9 +48,9 @@ namespace API_Assignment.Controllers
 
         // POST api/<CustomerController>
         [HttpPost]
-        public ActionResult Post(string name, string manufactID, string address, string phonenumber)
+        public ActionResult Post(string name,/* string manufacturerID, */string address, string phonenumber)
         {
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(manufactID) || string.IsNullOrWhiteSpace(address) || string.IsNullOrWhiteSpace(phonenumber))
+            if (string.IsNullOrWhiteSpace(name) /*|| string.IsNullOrWhiteSpace(manufacturerID)*/ || string.IsNullOrWhiteSpace(address) || string.IsNullOrWhiteSpace(phonenumber))
             {
                 return BadRequest();
             }
