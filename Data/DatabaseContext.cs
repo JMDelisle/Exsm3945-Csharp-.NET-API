@@ -11,7 +11,7 @@ namespace API_Assignment.Data
         public virtual DbSet<Dealership> Dealerships { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<VehicleModel> Models { get; set; }
-        public virtual DbSet<VehicleManufacturer> Manufacturers{ get; set; }
+        public virtual DbSet<Manufacturer> Manufacturers{ get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -25,18 +25,18 @@ namespace API_Assignment.Data
 
             modelBuilder.UseCollation("utf8mb4_general_ci").HasCharSet("utf8mb4");
 
-            modelBuilder.Entity<VehicleManufacturer>(entity =>
+            modelBuilder.Entity<Manufacturer>(entity =>
             {
                 entity.HasKey(e => e.ID);
                 entity.ToTable("manufacturer");
                 entity.Property(e => e.ID).HasColumnType("int(11)").HasColumnName("id").ValueGeneratedOnAdd();
                 entity.Property(e => e.Name).HasMaxLength(50).HasColumnName("name");
-                entity.HasData(new VehicleManufacturer[] {
-                    new VehicleManufacturer() { ID = 1, Name = "Ford" },
-                    new VehicleManufacturer() { ID = 2, Name = "Chevrolet" },
-                    new VehicleManufacturer() { ID = 3, Name = "Dodge" },
-                    new VehicleManufacturer() { ID = 4, Name = "Honda" },
-                    new VehicleManufacturer() { ID = 5, Name = "Toyota" }
+                entity.HasData(new Manufacturer[] {
+                    new Manufacturer() { ID = 1, Name = "Ford" },
+                    new Manufacturer() { ID = 2, Name = "Chevrolet" },
+                    new Manufacturer() { ID = 3, Name = "Dodge" },
+                    new Manufacturer() { ID = 4, Name = "Honda" },
+                    new Manufacturer() { ID = 5, Name = "Toyota" }
                 });
             });
             modelBuilder.Entity<VehicleModel>(entity =>

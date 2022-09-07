@@ -1,30 +1,30 @@
 ﻿using API_Assignment.Data;
 using API_Assignment.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API_Assignment.Controllers
 {
-    [Route("api/[controller]")]  //VehicleModels
+    [Route("api/[controller]")] //VehicleManufacturer
     [ApiController]
-    public class ModelController : ControllerBase
+    public class ManufacturerController : Controller
     {
+        
         private readonly DatabaseContext _context;
-        public ModelController(DatabaseContext context)
+        public ManufacturerController(DatabaseContext context)
         {
             _context = context;
         }
 
         // GET: api/<CustomerController>
         [HttpGet]
-        public IEnumerable<VehicleModel> Get()
+        public IEnumerable<Manufacturer> Get()
         {
-            return _context.Models.ToArray();
+            return _context.Manufacturers.ToArray();
         }
 
         // GET api/<CustomerController>/5
         [HttpGet("{id}")]
-        public ActionResult<VehicleModel> Get(string id)
+        public ActionResult<Manufacturer> Get(string id)
         {
             int providedID;
             try
@@ -37,7 +37,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                VehicleModel found = _context.Models.Where(x => x.ID == providedID).Single();
+                Manufacturer found = _context.Manufacturers.Where(x => x.ID == providedID).Single();
                 return found;
             }
             catch
@@ -56,7 +56,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                _context.Models.Add(new VehicleModel() { Name = name });
+                _context.Manufacturers.Add(new Manufacturer() { Name = name});
                 _context.SaveChanges();
                 return Ok();
             }
@@ -71,7 +71,7 @@ namespace API_Assignment.Controllers
         public ActionResult Put(string id, string name)
         {
             int providedID;
-            VehicleModel found;
+            Manufacturer found;
             try
             {
                 providedID = int.Parse(id);
@@ -82,7 +82,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                found = _context.Models.Where(x => x.ID == providedID).Single();
+                found = _context.Manufacturers.Where(x => x.ID == providedID).Single();
             }
             catch
             {
@@ -104,7 +104,7 @@ namespace API_Assignment.Controllers
         public ActionResult Patch(string id, string prop, string value)
         {
             int providedID;
-            VehicleModel found;
+            Manufacturer found;
             try
             {
                 providedID = int.Parse(id);
@@ -115,7 +115,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                found = _context.Models.Where(x => x.ID == providedID).Single();
+                found = _context.Manufacturers.Where(x => x.ID == providedID).Single();
             }
             catch
             {
@@ -145,7 +145,7 @@ namespace API_Assignment.Controllers
         public ActionResult Delete(string id)
         {
             int providedID;
-            VehicleModel found;
+            Manufacturer found;
             try
             {
                 providedID = int.Parse(id);
@@ -156,7 +156,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                found = _context.Models.Where(x => x.ID == providedID).Single();
+                found = _context.Manufacturers.Where(x => x.ID == providedID).Single();
             }
             catch
             {
@@ -164,7 +164,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                _context.Models.Remove(found);
+                _context.Manufacturers.Remove(found);
                 _context.SaveChanges();
                 return Ok();
             }

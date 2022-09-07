@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API_Assignment.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] //Dealership
     [ApiController]
     public class DealershipController : ControllerBase
     {
@@ -62,7 +62,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(404);
             }
         }
 
@@ -99,7 +99,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(400);
             }
         }
 
@@ -182,7 +182,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(500); // 400 & 404 Error.
+                return StatusCode(404); // 400 & 404 Error.
             }
         }
     }
