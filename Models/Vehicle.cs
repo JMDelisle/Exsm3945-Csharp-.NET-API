@@ -10,4 +10,5 @@
         public virtual VehicleModel VehicleModel { get; set; } = null!;
         public virtual Dealership Dealership { get; set; } = null!;
     }
+
 }
