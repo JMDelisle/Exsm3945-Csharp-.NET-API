@@ -62,7 +62,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(400, "It appears you have entered the wrong informations! ");
             }
         }
 
@@ -96,7 +96,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(404);
+                return StatusCode(404, "It appears something is missing from your data, please try again! ");
             }
         }
 
@@ -170,7 +170,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(404);
+                return StatusCode(404, "Cannot find the id, Are you sure your using the correct ones? ");
             }
         }
     }

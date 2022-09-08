@@ -10,7 +10,7 @@ namespace API_Assignment.Data
 
         public virtual DbSet<Dealership> Dealerships { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
-        public virtual DbSet<VehicleModel> Models { get; set; }
+        public virtual DbSet<VehicleModel> VehicleModels { get; set; }
         public virtual DbSet<Manufacturer> Manufacturers{ get; set; }
 
 

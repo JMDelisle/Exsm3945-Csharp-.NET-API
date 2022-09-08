@@ -19,7 +19,7 @@ namespace API_Assignment.Controllers
         [HttpGet]
         public IEnumerable<VehicleModel> Get()
         {
-            return _context.Models.ToArray();
+            return _context.VehicleModels.ToArray();
         }
 
         // GET api/<CustomerController>/5
@@ -37,7 +37,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                VehicleModel found = _context.Models.Where(x => x.ID == providedID).Single();
+                VehicleModel found = _context.VehicleModels.Where(x => x.ID == providedID).Single();
                 return found;
             }
             catch
@@ -48,21 +48,30 @@ namespace API_Assignment.Controllers
 
         // POST api/<CustomerController>
         [HttpPost]
-        public ActionResult Post(string name)
+        public ActionResult Post(int manufacturerid, string name)
         {
+            Manufacturer test;
             if (string.IsNullOrWhiteSpace(name))
             {
                 return BadRequest();
             }
             try
             {
-                _context.Models.Add(new VehicleModel() { Name = name });
+                test = _context.Manufacturers.Where(x => x.ID == manufacturerid).Single();
+            }
+            catch
+            {
+                return NotFound("It appears you have entered the wrong name, please reenter a proper name.");
+            }
+            try
+            {
+                _context.VehicleModels.Add(new VehicleModel() { ManufacturerID = manufacturerid, Name = name });
                 _context.SaveChanges();
                 return Ok();
             }
             catch
             {
-                return StatusCode(400);
+                return StatusCode(400, "It appears you have entered the wrong informations! ");
             }
         }
 
@@ -82,7 +91,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                found = _context.Models.Where(x => x.ID == providedID).Single();
+                found = _context.VehicleModels.Where(x => x.ID == providedID).Single();
             }
             catch
             {
@@ -96,7 +105,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(400);
+                return StatusCode(404, "It appears something is missing from your data, please try again! ");
             }
         }
 
@@ -136,7 +145,7 @@ namespace API_Assignment.Controllers
         //    }
         //    catch
         //    {
-        //        return StatusCode(400);
+        //        return StatusCode(404);
         //    }
         //}
 
@@ -156,7 +165,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                found = _context.Models.Where(x => x.ID == providedID).Single();
+                found = _context.VehicleModels.Where(x => x.ID == providedID).Single();
             }
             catch
             {
@@ -164,13 +173,13 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                _context.Models.Remove(found);
+                _context.VehicleModels.Remove(found);
                 _context.SaveChanges();
                 return Ok();
             }
             catch
             {
-                return StatusCode(404);
+                return StatusCode(400, "Cannot find the id, Are you sure your using the correct ones? ");
             }
         }
     }

@@ -2,6 +2,7 @@
 using API_Assignment.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace API_Assignment.Controllers
 {
@@ -48,27 +49,58 @@ namespace API_Assignment.Controllers
 
         // POST api/<CustomerController>
         [HttpPost]
-        public ActionResult Post(string vin, string trim)
+        public ActionResult Post(string vin, int modelid, int dealershipid, string trim)
         {
+            Dealership test2;
+            Manufacturer test;
+            //if (string.IsNullOrEmpty(vin))
+            //{
+            //    throw new ArgumentException($"'{nameof(vin)}' cannot be null or empty.", nameof(vin));
+            //}
+
+            //if (string.IsNullOrEmpty(trim))
+            //{
+            //    throw new ArgumentException($"'{nameof(trim)}' cannot be null or empty.", nameof(trim));
+            //}
+
             if (string.IsNullOrWhiteSpace(vin) || string.IsNullOrWhiteSpace(trim))
             {
                 return BadRequest();
             }
+
             try
             {
-                _context.Vehicles.Add(new Vehicle() { VIN = vin, TrimLevel = trim });
+                test = _context.Manufacturers.Where(x => x.ID == modelid).Single();
+            }
+            catch
+            {
+                return NotFound("It appears you have entered the wrong informations in modelid, please reenter the correct informations! ");
+            }
+
+            try
+            {
+                test2 = _context.Dealerships.Where(x => x.ID == dealershipid).Single();
+            }
+            catch
+            {
+                return NotFound("It appears you have entered the wrong informations in dealershipid, please reenter the correct informations! ");
+            }
+
+            try
+            {
+                _context.Vehicles.Add(new Vehicle() { VIN = vin, ModelID = modelid, DealershipID = dealershipid, TrimLevel = trim });
                 _context.SaveChanges();
                 return Ok();
             }
             catch
             {
-                return StatusCode(404);
+                return StatusCode(400, "It appears you have entered the wrong informations! ");
             }
         }
 
         // PUT api/<CustomerController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(string vin)
+        public ActionResult Put(string vin, string trimlevel)
         {
             string providedID;
             Vehicle found;
@@ -91,12 +123,13 @@ namespace API_Assignment.Controllers
             try
             {
                 found.VIN = vin ?? found.VIN;
+                found.TrimLevel = trimlevel ?? found.TrimLevel;
                 _context.SaveChanges();
                 return Ok();
             }
             catch
             {
-                return StatusCode(404);
+                return StatusCode(404, "It appears something is missing from your data, please try again! ");
             }
         }
 
@@ -170,7 +203,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(404);
+                return StatusCode(400, "Cannot find the id, Are you sure your using the correct ones? ");
             }
         }
     }
