@@ -125,7 +125,7 @@ namespace API_Assignment.Controllers
         //    {
         //        switch (prop)
         //        {
-        //            case "Model name": // Displayed for viewers.
+        //            case "Manufacturer name": // Displayed for viewers.
         //                found.Name = value;
         //                break;
         //            default:

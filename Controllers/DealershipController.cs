@@ -54,14 +54,14 @@ namespace API_Assignment.Controllers
         [HttpPost]
         public ActionResult Post(string name, int manufacturerID, string address, string phonenumber)
         {
-            Manufacturer test;
+            Manufacturer found;
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(address) || string.IsNullOrWhiteSpace(phonenumber))
             {
                 return BadRequest();
             }
             try
             {
-                test =_context.Manufacturers.Where(x => x.ID == manufacturerID).Single();
+                found =_context.Manufacturers.Where(x => x.ID == manufacturerID).Single();
             }
             catch
             {
@@ -82,10 +82,10 @@ namespace API_Assignment.Controllers
 
         // PUT api/<CustomerController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int manufacturerID, string name, string address, string phonenumber)
+        public ActionResult Put(string id, int manufacturerID, string name, string address, string phonenumber)
         {
             int providedID;
-            Manufacturer found;
+            Dealership found;
             try
             {
                 providedID = int.Parse(id);
@@ -96,7 +96,7 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                found = _context.Customers.Where(x => x.Id == providedID).Single();
+                found = _context.Dealerships.Where(x => x.ID == providedID).Single();
             }
             catch
             {
@@ -104,7 +104,6 @@ namespace API_Assignment.Controllers
             }
             try
             {
-                found.ManufacturerID = manufacturerID;
                 found.Name = name ?? found.Name;
                 found.Address = address ?? found.Address;
                 found.PhoneNumber = phonenumber ?? found.PhoneNumber;
@@ -113,100 +112,61 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(500);
+                return StatusCode(404, "Incorrect informations used.");
             }
         }
 
-        // try
-        // {
-        //    providedID = int.Parse(name);
-        // }
-        // catch
-        // {
-        //    return NotFound(); // Creates Bad Request
-        // }
-        // try
-        // {
-        //   test = _context.Manufacturers.Where(x => x.ID == manufacturerID).Single();
-        // }
-        // catch
-        // {
-        //    return NotFound("*Error* "/*Manufacturer ID not found! Please enter the correct ID.*/);
-        // }
-        // try
-        // {
-        //    found = _context.Dealerships.Where(x => x.ID == providedID).Single();
-        // }
-        // catch
-        // {
-        //    return NotFound();
-        // }
-        // try
-        // {
-        //    found.ManufacturerID = manufacturerID;
-        //    found.Name = name ?? found.Name;
-        //    found.Address = address ?? found.Address;
-        //    found.PhoneNumber = phonenumber ?? found.PhoneNumber;
-        //    _context.SaveChanges();
-        //    return Ok();
-        // }
-        // catch
-        // {
-        //    return StatusCode(404, "ERROR 101 ");
-        // }
-    }
+        //[HttpPatch("{id}")]
+        //public ActionResult Patch(string ID, string prop, string value)
+        //{
+        //    int providedID;
+        //    Dealership found;
+        //    try
+        //    {
+        //        providedID = int.Parse(ID);
+        //    }
+        //    catch
+        //    {
+        //        return BadRequest();
+        //    }
+        //    try
+        //    {
+        //        found = _context.Dealerships.Where(x => x.ID == providedID).Single();
+        //    }
+        //    catch
+        //    {
+        //        return NotFound();
+        //    }
+        //    try
+        //    {
+        //        switch (prop)
+        //        {
+        //            case "name":
+        //                found.Name = value;
+        //                break;
+        //            //case "manuID":
+        //            //    found.ManufacturerID = value;
+        //            //    break;
+        //            case "address":
+        //                found.Address = value;
+        //                break;
+        //            case "phonenumber":
+        //                found.PhoneNumber = value;
+        //                break;
+        //            default:
+        //                return BadRequest();
+        //        }
+        //        _context.SaveChanges();
+        //        return Ok();
+        //    }
+        //    catch
+        //    {
+        //        return StatusCode(500);
+        //    }
+        //}
 
-    //[HttpPatch("{id}")]
-    //public ActionResult Patch(string ID, string prop, string value)
-    //{
-    //    int providedID;
-    //    Dealership found;
-    //    try
-    //    {
-    //        providedID = int.Parse(ID);
-    //    }
-    //    catch
-    //    {
-    //        return BadRequest();
-    //    }
-    //    try
-    //    {
-    //        found = _context.Dealerships.Where(x => x.ID == providedID).Single();
-    //    }
-    //    catch
-    //    {
-    //        return NotFound();
-    //    }
-    //    try
-    //    {
-    //        switch (prop)
-    //        {
-    //            case "name":
-    //                found.Name = value;
-    //                break;
-    //            //case "manuID":
-    //            //    found.ManufacturerID = value;
-    //            //    break;
-    //            case "address":
-    //                found.Address = value;
-    //                break;
-    //            case "phonenumber":
-    //                found.PhoneNumber = value;
-    //                break;
-    //            default:
-    //                return BadRequest();
-    //        }
-    //        _context.SaveChanges();
-    //        return Ok();
-    //    }
-    //    catch
-    //    {
-    //        return StatusCode(500);
-    //    }
-    //}
-
-    // DELETE api/<CustomerController>/5
-    [HttpDelete("{id}")]
+        // DELETE api/<CustomerController>/5
+        [HttpDelete("{id}")]
         public ActionResult Delete(string id)
         {
             int providedID;

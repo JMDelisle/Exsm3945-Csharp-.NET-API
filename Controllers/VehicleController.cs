@@ -53,15 +53,6 @@ namespace API_Assignment.Controllers
         {
             Dealership test2;
             Manufacturer test;
-            //if (string.IsNullOrEmpty(vin))
-            //{
-            //    throw new ArgumentException($"'{nameof(vin)}' cannot be null or empty.", nameof(vin));
-            //}
-
-            //if (string.IsNullOrEmpty(trim))
-            //{
-            //    throw new ArgumentException($"'{nameof(trim)}' cannot be null or empty.", nameof(trim));
-            //}
 
             if (string.IsNullOrWhiteSpace(vin) || string.IsNullOrWhiteSpace(trim))
             {
@@ -133,45 +124,6 @@ namespace API_Assignment.Controllers
             }
         }
 
-        //[HttpPatch("{id}")]
-        //public ActionResult Patch(string id, string prop, string value)
-        //{
-        //    int providedID;
-        //    Vehicle found;
-        //    try
-        //    {
-        //        providedID = int.Parse(id);
-        //    }
-        //    catch
-        //    {
-        //        return BadRequest();
-        //    }
-        //    try
-        //    {
-        //        found = _context.Vehicles.Where(x => x.ID == providedID).Single();
-        //    }
-        //    catch
-        //    {
-        //        return NotFound();
-        //    }
-        //    try
-        //    {
-        //        switch (prop)
-        //        {
-        //            case "Model name": // Displayed for viewers.
-        //                found.Name = value;
-        //                break;
-        //            default:
-        //                return BadRequest();
-        //        }
-        //        _context.SaveChanges();
-        //        return Ok();
-        //    }
-        //    catch
-        //    {
-        //        return StatusCode(400);
-        //    }
-        //}
 
         // DELETE api/<CustomerController>/5
         [HttpDelete("{id}")]
@@ -203,7 +155,7 @@ namespace API_Assignment.Controllers
             }
             catch
             {
-                return StatusCode(400, "Cannot find the id, Are you sure your using the correct ones? ");
+                return StatusCode(404);
             }
         }
     }

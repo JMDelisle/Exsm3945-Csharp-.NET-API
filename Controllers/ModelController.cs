@@ -2,6 +2,7 @@
 using API_Assignment.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace API_Assignment.Controllers
 {
@@ -48,32 +49,59 @@ namespace API_Assignment.Controllers
 
         // POST api/<CustomerController>
         [HttpPost]
-        public ActionResult Post(int manufacturerid, string name)
+        public ActionResult Post(int manufacturerID, string name)
         {
-            Manufacturer test;
+            Manufacturer found;
             if (string.IsNullOrWhiteSpace(name))
             {
                 return BadRequest();
             }
             try
             {
-                test = _context.Manufacturers.Where(x => x.ID == manufacturerid).Single();
+                found = _context.Manufacturers.Where(x => x.ID == manufacturerID).Single();
             }
             catch
             {
-                return NotFound("It appears you have entered the wrong name, please reenter a proper name.");
+                return NotFound("It appears you have entered the wrong model informations, please reenter the correct informations! ");
             }
+
             try
             {
-                _context.VehicleModels.Add(new VehicleModel() { ManufacturerID = manufacturerid, Name = name });
+                _context.VehicleModels.Add(new VehicleModel() { Name = name, ManufacturerID = manufacturerID});
                 _context.SaveChanges();
                 return Ok();
             }
             catch
             {
-                return StatusCode(400, "It appears you have entered the wrong informations! ");
+                return StatusCode(400);
             }
         }
+        //public ActionResult Post(int manufacturerid, string name)
+        //{
+        //    Manufacturer test;
+        //    if (string.IsNullOrWhiteSpace(name))
+        //    {
+        //        return BadRequest();
+        //    }
+        //    try
+        //    {
+        //        test = _context.Manufacturers.Where(x => x.ID == manufacturerid).Single();
+        //    }
+        //    catch
+        //    {
+        //        return NotFound("It appears you have entered the wrong name, please reenter a proper name.");
+        //    }
+        //    try
+        //    {
+        //        _context.VehicleModels.Add(new VehicleModel() { ManufacturerID = manufacturerid, Name = name });
+        //        _context.SaveChanges();
+        //        return Ok();
+        //    }
+        //    catch
+        //    {
+        //        return StatusCode(400, "It appears you have entered the wrong informations! ");
+        //    }
+        //}
 
         // PUT api/<CustomerController>/5
         [HttpPut("{id}")]
