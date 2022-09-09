@@ -100,45 +100,6 @@ namespace API_Assignment.Controllers
             }
         }
 
-        //[HttpPatch("{id}")]
-        //public ActionResult Patch(string id, string prop, string value)
-        //{
-        //    int providedID;
-        //    Manufacturer found;
-        //    try
-        //    {
-        //        providedID = int.Parse(id);
-        //    }
-        //    catch
-        //    {
-        //        return BadRequest();
-        //    }
-        //    try
-        //    {
-        //        found = _context.Manufacturers.Where(x => x.ID == providedID).Single();
-        //    }
-        //    catch
-        //    {
-        //        return NotFound();
-        //    }
-        //    try
-        //    {
-        //        switch (prop)
-        //        {
-        //            case "Manufacturer name": // Displayed for viewers.
-        //                found.Name = value;
-        //                break;
-        //            default:
-        //                return BadRequest();
-        //        }
-        //        _context.SaveChanges();
-        //        return Ok();
-        //    }
-        //    catch
-        //    {
-        //        return StatusCode(400);
-        //    }
-        //}
 
         // DELETE api/<CustomerController>/5
         [HttpDelete("{id}")]

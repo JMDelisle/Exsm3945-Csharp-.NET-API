@@ -3,7 +3,6 @@ using API_Assignment.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
 
 
 
@@ -82,7 +81,7 @@ namespace API_Assignment.Controllers
 
         // PUT api/<CustomerController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(string id, int manufacturerID, string name, string address, string phonenumber)
+        public ActionResult Put(string id, string name, string address, string phonenumber)
         {
             int providedID;
             Dealership found;
@@ -116,54 +115,6 @@ namespace API_Assignment.Controllers
             }
         }
 
-        //[HttpPatch("{id}")]
-        //public ActionResult Patch(string ID, string prop, string value)
-        //{
-        //    int providedID;
-        //    Dealership found;
-        //    try
-        //    {
-        //        providedID = int.Parse(ID);
-        //    }
-        //    catch
-        //    {
-        //        return BadRequest();
-        //    }
-        //    try
-        //    {
-        //        found = _context.Dealerships.Where(x => x.ID == providedID).Single();
-        //    }
-        //    catch
-        //    {
-        //        return NotFound();
-        //    }
-        //    try
-        //    {
-        //        switch (prop)
-        //        {
-        //            case "name":
-        //                found.Name = value;
-        //                break;
-        //            //case "manuID":
-        //            //    found.ManufacturerID = value;
-        //            //    break;
-        //            case "address":
-        //                found.Address = value;
-        //                break;
-        //            case "phonenumber":
-        //                found.PhoneNumber = value;
-        //                break;
-        //            default:
-        //                return BadRequest();
-        //        }
-        //        _context.SaveChanges();
-        //        return Ok();
-        //    }
-        //    catch
-        //    {
-        //        return StatusCode(500);
-        //    }
-        //}
 
         // DELETE api/<CustomerController>/5
         [HttpDelete("{id}")]
